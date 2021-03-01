@@ -1,5 +1,6 @@
 #!groovy
-// Run docker build
+// Check test properties
+
 properties([disableConcurrentBuilds()])
 
 pipeline {
@@ -10,13 +11,16 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
     }
-        stage("create docker image") {
+    stages {
+        stage("First step") {
             steps {
-                echo " ============== start building image =================="
-                dir ('docker/toolbox') {
-                	sh 'docker build . '
-                }
+                sh 'ssh root@192.168.0.10 \'hostname\''
             }
-        } 
+        }
+        stage("Second step") {
+            steps {
+                sh 'ssh root@192.168.0.10 \'uptime\''
+            }
+        }
     }
 }
