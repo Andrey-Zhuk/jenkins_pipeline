@@ -2,6 +2,7 @@
 // Check test properties
 properties([disableConcurrentBuilds()])
 
+
 pipeline {
     agent { 
         label 'master'
